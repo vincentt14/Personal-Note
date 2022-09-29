@@ -21,6 +21,7 @@ class NoteMain extends React.Component {
 
     this.state = {
       notes: newData,
+      search: "",
     };
 
     this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
@@ -53,7 +54,7 @@ class NoteMain extends React.Component {
             title,
             body,
             archived: false,
-            createdAt: +new Date(),
+            createdAt: showFormattedDate(new Date()),
           },
         ],
       };

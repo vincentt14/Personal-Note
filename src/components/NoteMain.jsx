@@ -21,17 +21,41 @@ class NoteMain extends React.Component {
 
     this.state = {
       notes: newData,
-      search: "",
+      currentNotes: newData,
     };
 
     this.onDeleteEventHandler = this.onDeleteEventHandler.bind(this);
     this.onAddNoteEventHandler = this.onAddNoteEventHandler.bind(this);
     this.onArchiveEventHandler = this.onArchiveEventHandler.bind(this);
+    this.seachEngineWannabe = this.seachEngineWannabe.bind(this);
+  }
+
+  seachEngineWannabe(character) {
+    console.log(character);
+    if (character === "") {
+      this.setState({ currentNotes: this.state.notes });
+    }
+
+    const tokens = character
+      .toLowerCase()
+      .split(" ")
+      .filter((token) => token.trim() !== "");
+
+    if (tokens.length) {
+      let searchTermRegex = new RegExp(tokens.join("|"), "gim");
+      const filteredNotes = this.state.notes.filter((note) => {
+        let noteString = "";
+        noteString += note.title.toString().toLowerCase().trim() + " ";
+        return noteString.match(searchTermRegex);
+      });
+      console.log(filteredNotes);
+      this.setState({ currentNotes: filteredNotes });
+    }
   }
 
   onDeleteEventHandler(id) {
     const notes = this.state.notes.filter((note) => note.id !== id);
-    this.setState({ notes });
+    this.setState({ notes: notes, currentNotes: notes });
   }
 
   onArchiveEventHandler(id) {
@@ -41,32 +65,27 @@ class NoteMain extends React.Component {
         notes[i].archived = !notes[i].archived;
       }
     }
-    this.setState({ notes });
+    this.setState({ notes: notes, currentNotes: notes });
     console.log(notes);
   }
 
   onAddNoteEventHandler({ title, body }) {
-    this.setState((previousState) => {
-      return {
-        notes: [
-          ...previousState.notes,
-          {
-            id: +new Date(),
-            title,
-            body,
-            archived: false,
-            createdAt: showFormattedDate(new Date()),
-          },
-        ],
-      };
+    const notes = this.state.notes;
+    notes.push({
+      id: +new Date(),
+      title,
+      body,
+      archived: false,
+      createdAt: showFormattedDate(new Date()),
     });
+    this.setState({ notes: notes, currentNotes: notes });
   }
 
   render() {
     return (
       <div>
-        <NoteAppHeader />
-        <NoteAppBody notes={this.state.notes} onDelete={this.onDeleteEventHandler} onArchive={this.onArchiveEventHandler} addNote={this.onAddNoteEventHandler} />
+        <NoteAppHeader seachEngineWannabe={this.seachEngineWannabe} />
+        <NoteAppBody notes={this.state.currentNotes} onDelete={this.onDeleteEventHandler} onArchive={this.onArchiveEventHandler} addNote={this.onAddNoteEventHandler} />
       </div>
     );
   }

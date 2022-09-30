@@ -3,28 +3,20 @@ import React from "react";
 class NoteSearch extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      searchTerm: "",
-    };
-
+    // console.log(props);
     this.onSearchFilled = this.onSearchFilled.bind(this);
   }
 
   onSearchFilled(event) {
-    this.setState(() => {
-      return {
-        searchTerm: event.target.value,
-      };
-    });
-    console.log(this.state.searchTerm);
+    // console.log(event.target.value);
+    this.props.seachEngineWannabe(event.target.value);
   }
 
   render() {
     return (
-      <form className="note-search">
-        <input placeholder="Cari catatan" value={this.state.searchTerm} onChange={this.onSearchFilled} />
-      </form>
+      <div className="note-search">
+        <input placeholder="Cari catatan" onChange={this.onSearchFilled} />
+      </div>
     );
   }
 }

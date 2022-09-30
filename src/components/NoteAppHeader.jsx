@@ -1,11 +1,11 @@
 import React from "react";
 import NoteSearch from "./NoteSearch";
 
-const NoteAppHeader = () => {
+const NoteAppHeader = ({ seachEngineWannabe }) => {
   return (
     <div className="note-app__header">
       <h1>Notes</h1>
-      <NoteSearch />
+      <NoteSearch seachEngineWannabe={seachEngineWannabe} />
     </div>
   );
 };

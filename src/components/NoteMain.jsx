@@ -38,10 +38,11 @@ class NoteMain extends React.Component {
     const notes = this.state.notes;
     for (let i = 0; i < notes.length; i++) {
       if (notes[i].id === id) {
-        notes[i].archived = true;
+        notes[i].archived = !notes[i].archived;
       }
     }
     this.setState({ notes });
+    console.log(notes);
   }
 
   onAddNoteEventHandler({ title, body }) {

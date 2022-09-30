@@ -10,7 +10,7 @@ const NoteAppBody = ({ notes, onDelete, addNote, onArchive }) => {
       <h2>Catatan Aktif</h2>
       <NoteList notes={notes} onDelete={onDelete} onArchive={onArchive} />
       <h2>Arsip</h2>
-      <NoteArchiveList notes={notes} onDelete={onDelete} />
+      <NoteArchiveList notes={notes} onDelete={onDelete} onArchive={onArchive} />
     </div>
   );
 };

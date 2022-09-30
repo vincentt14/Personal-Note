@@ -7,7 +7,7 @@ class NoteInput extends React.Component {
     this.state = {
       title: "",
       body: "",
-      sisaChar: "",
+      sisaChar: 50,
     };
 
     this.onTitleChangeHandler = this.onTitleChangeHandler.bind(this);
@@ -23,7 +23,7 @@ class NoteInput extends React.Component {
     });
     console.log(this.state.title);
     if (event.target.value.length > 50) {
-      window.alert('stop')
+      window.alert("stop");
     }
   }
 
